@@ -1,4 +1,6 @@
-# Blessed Terminal Game Library Rewrite
+# blECSd Terminal Game Library
+
+> **Note:** This library is being renamed from "blessed" to "blECSd" to reflect its ECS-first architecture and distinguish it from the original blessed library.
 
 ## Project Overview
 
@@ -219,9 +221,73 @@ pnpm typecheck        # TypeScript type checking
 | `vitest.config.ts` | Test configuration |
 | `.beads/` | Issue tracking database |
 
+## Documentation Requirements
+
+### Rule: No Ticket Without Docs
+
+Every ticket that adds or modifies public API MUST include documentation updates.
+A ticket is NOT complete until:
+
+1. **JSDoc comments** are added/updated for all public exports
+2. **API reference** page is created/updated in `docs/api/`
+3. **Code examples** are added (at least one per function/class)
+4. **Guide updates** are made if the feature affects existing guides
+
+### Documentation Checklist (for every PR)
+
+- [ ] JSDoc comments added/updated with @example
+- [ ] API reference page added/updated
+- [ ] Code examples are complete and runnable
+- [ ] Related guides updated (if applicable)
+
+### What Requires Documentation
+
+| Change Type | Required Docs |
+|-------------|---------------|
+| New public function | JSDoc + API page + example |
+| New widget | JSDoc + API page + example + guide section |
+| New component | JSDoc + API page + ECS guide update |
+| New system | JSDoc + API page + example |
+| Config option added | JSDoc + API page update |
+| Behavior change | Guide update + changelog |
+| Bug fix (public API) | Changelog only |
+| Internal refactor | None |
+
+### JSDoc Standard
+
+Every public export must have:
+
+```typescript
+/**
+ * Brief description of what this does.
+ *
+ * @param paramName - Description of parameter
+ * @returns Description of return value
+ *
+ * @example
+ * ```typescript
+ * // Complete runnable example
+ * import { thisFunction } from 'blecsd';
+ * const result = thisFunction(value);
+ * ```
+ */
+```
+
+### Ticket Documentation Tracking
+
+When creating tickets that affect public API:
+- Add `[needs-docs]` label
+- Include "Documentation Notes" section describing what docs are needed
+
+When closing tickets:
+- Verify JSDoc exists for new exports
+- Verify API reference page exists
+- Remove `[needs-docs]` label only when docs are complete
+
 ## Resources
 
 - [bitecs documentation](https://github.com/NateTheGreatt/bitECS)
 - [Zod documentation](https://zod.dev)
 - [Original blessed source](./lib/) (reference only)
 - [ncurses documentation](https://invisible-island.net/ncurses/)
+- [Documentation](./docs/) - Library documentation
