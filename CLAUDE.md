@@ -65,6 +65,52 @@ const movementSystem = defineSystem((world) => {
 - Use branded types for IDs and special values
 - Prefer `readonly` arrays and objects where possible
 
+### Code Style: Early Returns and Guard Clauses
+
+**Always prefer early returns and guard clauses** to reduce nesting and improve readability.
+
+```typescript
+// BAD - deeply nested
+function processEntity(world: World, eid: Entity): Result {
+  if (hasComponent(world, Position, eid)) {
+    if (hasComponent(world, Velocity, eid)) {
+      if (isVisible(world, eid)) {
+        // actual logic buried in nesting
+        return doSomething(world, eid);
+      } else {
+        return { error: 'not visible' };
+      }
+    } else {
+      return { error: 'no velocity' };
+    }
+  } else {
+    return { error: 'no position' };
+  }
+}
+
+// GOOD - guard clauses with early returns
+function processEntity(world: World, eid: Entity): Result {
+  if (!hasComponent(world, Position, eid)) {
+    return { error: 'no position' };
+  }
+  if (!hasComponent(world, Velocity, eid)) {
+    return { error: 'no velocity' };
+  }
+  if (!isVisible(world, eid)) {
+    return { error: 'not visible' };
+  }
+
+  // actual logic at the end, not nested
+  return doSomething(world, eid);
+}
+```
+
+**Rules:**
+- Handle error/edge cases first, then the happy path
+- Maximum nesting depth of 2-3 levels
+- Use early `return`, `continue`, or `break` to exit early
+- Keep the main logic at the lowest indentation level
+
 ### Zod Validation
 
 Use Zod at system boundaries:
