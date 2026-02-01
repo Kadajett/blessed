@@ -283,3 +283,90 @@ Infrastructure (19j)
                       │
                       └──► Game Loop (hla)
 ```
+
+---
+
+## Part 6: Second Audit - Comprehensive Code Review (Added after deep dive)
+
+A thorough file-by-file audit revealed significantly more missing functionality:
+
+### New Tickets Created (32 total)
+
+#### From program.js (5 tickets):
+| ID | Title | Priority |
+|----|-------|----------|
+| blessed-mtg.18 | Debug logging system | P2 |
+| blessed-mtg.19 | Media copy (print) functions | P3 |
+| blessed-mtg.20 | Rectangular area operations | P3 |
+| blessed-mtg.21 | Window manipulation functions | P2 |
+| blessed-mtg.22 | DEC locator operations | P3 |
+
+#### From node.js (4 tickets):
+| ID | Title | Priority |
+|----|-------|----------|
+| blessed-bjw.18 | Node tree manipulation API | **P0** |
+| blessed-bjw.19 | Tree traversal utilities | P1 |
+| blessed-bjw.20 | Node lifecycle events | P1 |
+| blessed-bjw.21 | Node data storage API | P2 |
+
+#### From element.js (6 tickets):
+| ID | Title | Priority |
+|----|-------|----------|
+| blessed-bjw.22 | Element visibility methods | **P0** |
+| blessed-bjw.23 | Element content methods | **P0** |
+| blessed-bjw.24 | sattr style encoding | **P0** |
+| blessed-bjw.25 | Element input enable methods | P1 |
+| blessed-bjw.26 | Z-order management methods | P1 |
+| blessed-bjw.27 | Label system | P1 |
+
+#### From screen.js (6 tickets):
+| ID | Title | Priority |
+|----|-------|----------|
+| blessed-ree.25 | Key lock and grab system | **P0** |
+| blessed-ree.26 | Screen input setup methods | **P0** |
+| blessed-ree.27 | Hover tooltip system | P1 |
+| blessed-ree.28 | Attribute encoding methods | **P0** |
+| blessed-ree.29 | Child process spawning | P2 |
+| blessed-ree.30 | setEffects system | P1 |
+
+#### From tput.js (6 tickets):
+| ID | Title | Priority |
+|----|-------|----------|
+| blessed-hyf.8 | Termcap parser | P1 |
+| blessed-hyf.9 | Captoinfo converter | P1 |
+| blessed-hyf.10 | Feature detection system | P1 |
+| blessed-hyf.11 | Padding system | P2 |
+| blessed-hyf.12 | sprintf implementation | P1 |
+| blessed-hyf.13 | ACS character maps | P1 |
+
+#### From events.js/helpers.js (3 tickets):
+| ID | Title | Priority |
+|----|-------|----------|
+| blessed-2qm.7 | EventEmitter utilities | P1 |
+| blessed-bjw.28 | Tag generation utilities | P1 |
+| blessed-etz.6 | Unicode utilities | P2 |
+
+### Critical P0 Tickets Added
+
+These are **essential** for the library to function:
+
+1. **blessed-bjw.18** - Node tree manipulation (append, remove, etc.)
+2. **blessed-bjw.22** - Visibility methods (hide, show, toggle)
+3. **blessed-bjw.23** - Content methods (setContent, getContent)
+4. **blessed-bjw.24** - sattr style encoding (converts style to render attributes)
+5. **blessed-ree.25** - Key lock/grab (essential for game input)
+6. **blessed-ree.26** - Screen input setup (mouse/key initialization)
+7. **blessed-ree.28** - Attribute encoding (attrCode/codeAttr for rendering)
+
+### Widget-Specific Gaps Identified
+
+The widget audit revealed many per-widget features that may need to be added to existing tickets or documented separately:
+
+- **List**: Array-like methods, fuzzyFind, pick(), full vi keybindings
+- **Listbar**: Command objects, horizontal scrolling, per-command shortcuts
+- **ScrollableBox**: Scrollbar dragging, CSR optimization, track styling
+- **Table**: Column width calculation, box-drawing borders
+- **Textarea**: External editor, inputOnFocus, screen focus management
+- **Form**: Per-type reset behavior, autoNext, nested traversal
+- **All widgets**: Many detailed features in the audit report
+
